@@ -69,11 +69,6 @@ VehicleCommand QuadControl::GenerateMotorCommands(float collThrustCmd, V3F momen
   // You'll need the arm length parameter L, and the drag/thrust ratio kappa
 
   ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
-
-//  cmd.desiredThrustsN[0] = mass * 9.81f / 4.f; // front left
-//  cmd.desiredThrustsN[1] = mass * 9.81f / 4.f; // front right
-//  cmd.desiredThrustsN[2] = mass * 9.81f / 4.f; // rear left
-//  cmd.desiredThrustsN[3] = mass * 9.81f / 4.f; // rear right
     
     float l = L / sqrtf(2.f);
     
