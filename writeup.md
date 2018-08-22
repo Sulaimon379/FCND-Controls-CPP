@@ -27,20 +27,24 @@ I calculated the error of the body rotation rates from the difference between th
 
 #### 2. Implement roll pitch control in C++. 
 The roll pitch controller takes as input the desired acceleration in global XY coordinates, current or estimated attitude of the vehicle and desired collective thrust of the quad. It then calculates and returns the a V3F containing the desired pitch and roll rates. 
-To calculate the desired pitch and roll rates, I started by dividing collThrustCmd by mass to get collective acceleration. This is used to compute the b_xTarget and b_yTarget values by constraining (the division of desired acceleration by collective acceleration on each axis x & y) in in -maxTiltAngle and maxTiltAngle. The p-terms for both b_x and b_y was computed by multiplying each by the kpBank variable. finally, the commanded p and q were computed with the formular: by substituting the p terms into the formula:
+To calculate the desired pitch and roll rates, I started by dividing collThrustCmd by mass to get collective acceleration. This is used to compute the b_xTarget and b_yTarget values by constraining (the division of desired acceleration by collective acceleration on each axis x & y) in -maxTiltAngle and maxTiltAngle. The p-terms for both b_x and b_y was computed by multiplying each by the kpBank variable. finally, the commanded p and q were computed by substituting the p terms into the formula:
+```
 pqrCmd.x = (R(1,0) * b_x_Pterm - R(0,0) * b_y_Pterm) / R(2,2);
 pqrCmd.y = (R(1,1) * b_x_Pterm - R(0,1) * b_y_Pterm) / R(2,2)
+```
 
 
 #### 3. Implement altitude controller in C++. 
-The Altitude controller method accepts as input posZCmd, velZCmd: desired vertical position and velocity in NED [m]; posZ, velZ: current vertical position and velocity in NED [m]; accelZCmd: feed-forward vertical acceleration in NED [m/s2]; dt: the time step of the measurements [seconds]. The Altitude method then computes and returns the collective thrust command. For this method, I implemented a PID control. 
+The Altitude controller method accepts as input posZCmd, velZCmd: desired vertical position and velocity; posZ, velZ: current vertical position and velocity; accelZCmd: feed-forward vertical acceleration ; dt: the time step of the measurements [seconds]. The Altitude method then computes and returns the collective thrust command. For this method, I implemented a PID control. 
 First I computed the error in the vertical position of the drone zErr as the difference between the actual position posZ and the commanded position posZCmd. Then calculated the The p term by multiplying zErrby by kpPosZ.
 Next I calculated the vertical velocity error z_dotErr as the difference between the actual velocity velZ and the commanded velocity velZCmd. Then also calculated the The d term by multiplying z_dotErr by kpVelZ.
 The integratedAltitudeError was computed from zErr by dt, the z_Iterm computed from KiPosZ by integratedAltitudeError.
 The u_Lbar was computed from z_Pterm + z_Dterm + z_Iterm + accelZCmd.
 Finally Thrust was calculated as below:
+```
 thrust= (u_Lbar - CONST_GRAVITY) / R(2,2);
 thrust = -mass * CONSTRAIN(thrust, -maxAscentRate/dt, maxAscentRate/dt);
+```
 
 
 #### 4. Implement lateral position control in C++. 
