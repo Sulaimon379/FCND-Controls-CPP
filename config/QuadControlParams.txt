@@ -19,9 +19,6 @@ minMotorThrust = .1
 maxMotorThrust = 4.5
 
 # Position control gains -----------------------------
-# kpPosXY = 1
-# kpPosZ = 1
-# KiPosZ = 40
 
 # Scenario 3
 # kpPosXY = 35
@@ -34,9 +31,14 @@ maxMotorThrust = 4.5
 # KiPosZ = 22
 
 # Scenario 5
-kpPosXY = 35
-kpPosZ = 20
-KiPosZ = 12
+#kpPosXY = 35
+#kpPosZ = 20
+#KiPosZ = 12
+
+# Scenario 6
+kpPosXY = 27
+kpPosZ = 25
+KiPosZ = 30
 
 # Velocity control gains -----------------------------
 # kpVelXY = 14
@@ -46,33 +48,23 @@ KiPosZ = 12
 # kpVelXY = 12
 # kpVelZ = 6
 
-# Scenario 4
-# kpVelXY = 14
-# kpVelZ = 9
-
 # Scenario 5
-kpVelXY = 14
-kpVelZ = 8
+kpVelXY = 10
+kpVelZ = 7
 
 # Angle control gains --------------------------------
-# kpBank = 5
-# kpYaw = 1
 
 # Scenario 5
-kpYaw = 2
-
-# Scenario 2
-# kpBank = 9
+kpYaw = 3
 
 # Scenario 5
-kpBank = 8
+kpBank = 10
 
 
 # Angle rate gains -----------------------------------
-# kpPQR = 23, 23, 5
 
 # Scenario 2
-kpPQR = 87, 87, 10
+kpPQR = 90, 90, 6
 
 # limits
 maxAscentRate = 5
